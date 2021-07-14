@@ -10,6 +10,9 @@ let again = document.querySelector('.again');
 let score = 20;
 let highScore = document.querySelector('.highscore');
 
+//setting the high score from local storage
+highScore.textContent= window.localStorage.getItem('LocalHighScore');
+console.log(window.localStorage.getItem('LocalHighScore'));
 // to check the guessed number is correct or not and updating hint message color and highscore
 check.addEventListener('click', () => {
     let inputValue = inputCheck.value;
@@ -17,12 +20,15 @@ check.addEventListener('click', () => {
         hintMessage.textContent = "Yeaaaaa 👍 correct";
         body.style.backgroundColor = 'green';
         highScore.textContent = score;
+        window.localStorage.setItem('LocalHighScore', score);
+       
     }
     else if (actualNumber != inputValue) {
         if(score >1){
             hintMessage.textContent = actualNumber > inputValue ? "Too low" : "Too high";
             score = score - 1;
             document.querySelector('.score').textContent = score;
+           
         }
         else{
             hintMessage.textContent = "You Lost the game ,  play again";
